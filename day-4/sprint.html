@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Sprint · Interactive Landing</title>
+  <!-- Font & minimal reset -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #0b1120;
+      transition: background 0.25s, color 0.2s;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    /* dark mode class – toggled on <body> */
+    body.dark {
+      background: #0b1120;
+      color: #e2e8f0;
+    }
+
+    .card {
+      max-width: 720px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2.2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    body.dark .card {
+      background: rgba(18, 28, 46, 0.75);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    /* --- nav & header --- */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem 0.5rem;
+    }
+
+    .logo-heading h1 {
+      font-weight: 600;
+      font-size: 1.9rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-heading span {
+      font-weight: 400;
+      font-size: 0.9rem;
+      background: none;
+      -webkit-text-fill-color: currentColor;
+      color: #64748b;
+      display: block;
+      margin-top: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    body.dark .logo-heading span {
+      color: #94a3b8;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      border: none;
+      background: #eef2f6;
+      color: #1e293b;
+      padding: 0.55rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      border: 1px solid transparent;
+    }
+
+    .btn:hover {
+      background: #dce1e9;
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: scale(0.97);
+    }
+
+    body.dark .btn {
+      background: #2d3a52;
+      color: #e2e8f0;
+      border-color: #3b4a66;
+    }
+    body.dark .btn:hover {
+      background: #20bd37;
+    }
+    body.dark .btn-primary {
+      background: #3b82f6;
+      color: #0b1120;
+    }
+    body.dark .btn-primary:hover {
+      background: #60a5fa;
+    }
+
+    /* --- sections --- */
+    .section {
+      margin-top: 2.2rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    body.dark .section {
+      border-top-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .section-title {
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 1.2rem;
+    }
+
+    body.dark .section-title {
+      color: #94a3b8;
+    }
+
+    /* --- counter --- */
+    .counter-display {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .counter-number {
+      font-size: 3.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      min-width: 4rem;
+      background: #eef2f6;
+      padding: 0.1rem 1rem;
+      border-radius: 60px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    body.dark .counter-number {
+      background: #1e3a2d;
+    }
+
+    .counter-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    /* --- form --- */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      color: #334155;
+    }
+
+    body.dark .form-group label {
+      color: #cbd5e1;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border-radius: 40px;
+      border: 1px solid #d1d9e6;
+      background: white;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      color: #0b1120;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+
+    body.dark .form-control {
+      background: #1a2538;
+      border-color: #334155;
+      color: #f1f5f9;
+    }
+    body.dark .form-control:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .form-row .form-group {
+      flex: 1 1 180px;
+    }
+
+    .error-message {
+      color: #dc2626;
+      font-size: 0.8rem;
+      margin-top: 6px;
+      min-height: 1.4rem;
+      font-weight: 450;
+      transition: 0.15s;
+    }
+
+    body.dark .error-message {
+      color: #f87171;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 0.2rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-outline:hover {
+      background: #eef2f6;
+    }
+    body.dark .btn-outline {
+      border-color: #475569;
+      color: #e2e8f0;
+    }
+    body.dark .btn-outline:hover {
+      background: #2d3a52;
+    }
+
+    .status-badge {
+      font-size: 0.9rem;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      background: #dbeafe;
+      color: #1e3a8a;
+    }
+    body.dark .status-badge {
+      background: #1e2a4a;
+      color: #93bbfc;
+    }
+
+    /* small */
+    .flex-center {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* responsive */
+    @media (max-width: 480px) {
+      .card { padding: 1.8rem 1.2rem; }
+      .counter-number { font-size: 2.6rem; min-width: 3.2rem; }
+      .top-bar { flex-direction: column; align-items: start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- 01 STRUCTURE: heading, nav, form, counter, dark-mode toggle -->
+    <header class="top-bar">
+      <div class="logo-heading">
+        <h1>🚀 SprintLab</h1>
+        
+      </div>
+      <nav class="nav-actions" aria-label="Main navigation">
+        <!-- Dark mode toggle (button) – 02 -->
+        <button id="darkModeToggle" class="btn" aria-label="Toggle dark mode">
+          <span id="darkModeLabel">🌙 Dark</span>
+        </button>
+        <!-- extra nav link (optional) but we keep structure -->
+        <a href="#" class="btn btn-outline" style="text-decoration:none;">Docs</a>
+      </nav>
+    </header>
+
+    <!-- 03 CLICK COUNTER -->
+    <section class="section">
+      <h2 class="section-title">📊 Click counter</h2>
+      <div class="counter-display">
+        <div class="counter-number" id="clickCountDisplay">0</div>
+        <div class="counter-actions">
+          <button id="incrementBtn" class="btn btn-primary">➕ Click me</button>
+          <button id="resetCounterBtn" class="btn btn-outline">↺ Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 FORM VALIDATION -->
+    <section class="section">
+      <h2 class="section-title">📝 Contact</h2>
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nameInput">Full name</label>
+            <input type="text" id="nameInput" class="form-control" placeholder="enter name here" value="">
+            <div class="error-message" id="nameError"></div>
+          </div>
+          <div class="form-group">
+            <label for="emailInput">Email address</label>
+            <input type="email" id="emailInput" class="form-control" placeholder="hello@domain.com" value="">
+            <div class="error-message" id="emailError"></div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitFormBtn">✉️ Submit</button>
+          <span id="formStatus" class="status-badge" style="background:transparent; padding-left:0;">Ready</span>
+        </div>
+        <!-- additional error summary (optional but clean) -->
+        <div id="formGlobalError" class="error-message" style="margin-top: 0.5rem;"></div>
+      </form>
+    </section>
+
+    <!-- tiny footer note (structure) -->
+    <footer style="margin-top: 2rem; font-size:0.75rem; color:#94a3b8; border-top:1px solid rgba(0,0,0,0.04); padding-top:1.2rem; text-align:center;">
+      <span>⚡ Build Sprint · DOM · events · validation</span>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      "use strict";
+
+      // --- DOM refs ---
+      const body = document.body;
+      const darkToggle = document.getElementById('darkModeToggle');
+      const darkLabel = document.getElementById('darkModeLabel');
+
+      // counter
+      const clickDisplay = document.getElementById('clickCountDisplay');
+      const incBtn = document.getElementById('incrementBtn');
+      const resetBtn = document.getElementById('resetCounterBtn');
+
+      // form
+      const form = document.getElementById('contactForm');
+      const nameInput = document.getElementById('nameInput');
+      const emailInput = document.getElementById('emailInput');
+      const nameError = document.getElementById('nameError');
+      const emailError = document.getElementById('emailError');
+      const formStatus = document.getElementById('formStatus');
+      const globalError = document.getElementById('formGlobalError');
+
+      // --- 02 DARK MODE TOGGLE ---
+      let darkMode = false;  // local state
+
+      function updateDarkModeUI() {
+        if (darkMode) {
+          body.classList.add('dark');
+          darkLabel.textContent = '☀️ Light';
+        } else {
+          body.classList.remove('dark');
+          darkLabel.textContent = '🌙 Dark';
+        }
+      }
+
+      darkToggle.addEventListener('click', function(e) {
+        darkMode = !darkMode;
+        updateDarkModeUI();
+      });
+
+      // (optional) check for system preference? but we keep manual toggle.
+      // ensure initial state matches: default light, no class.
+      // but if user previously had class? we sync (just in case)
+      if (body.classList.contains('dark')) {
+        darkMode = true;
+        updateDarkModeUI();
+      }
+
+      // --- 03 CLICK COUNTER ---
+      let clickCount = 0;
+
+      function updateCounterDisplay() {
+        clickDisplay.textContent = clickCount;
+      }
+
+      incBtn.addEventListener('click', function() {
+        clickCount += 1;
+        updateCounterDisplay();
+      });
+
+      resetBtn.addEventListener('click', function() {
+        clickCount = 0;
+        updateCounterDisplay();
+      });
+
+      // --- 04 FORM VALIDATION ---
+      // Real-time validation clearing (optional) but we show errors on submit.
+      // we also clear errors on input to improve UX
+
+      function clearFieldErrors() {
+        nameError.textContent = '';
+        emailError.textContent = '';
+        globalError.textContent = '';
+        // also remove extra styling if needed
+        nameInput.style.borderColor = '';
+        emailInput.style.borderColor = '';
+      }
+
+      function setFieldError(inputEl, errorEl, message) {
+        errorEl.textContent = message;
+        if (message) {
+          inputEl.style.borderColor = '#dc2626';
+        } else {
+          inputEl.style.borderColor = '';
+        }
+      }
+
+      // live clearing when user types
+      nameInput.addEventListener('input', function() {
+        if (nameError.textContent) {
+          nameError.textContent = '';
+          nameInput.style.borderColor = '';
+        }
+        if (globalError.textContent) globalError.textContent = '';
+      });
+
+      emailInput.addEventListener('input', function() {
+        if (emailError.textContent) {
+          emailError.textContent = '';
+          emailInput.style.borderColor = '';
+        }
+        if (globalError.textContent) globalError.textContent = '';
+      });
+
+      // submit handler
+      form.addEventListener('submit', function(e) {
+        e.preventDefault(); // always prevent default
+
+        // reset errors
+        clearFieldErrors();
+
+        const nameVal = nameInput.value.trim();
+        const emailVal = emailInput.value.trim();
+
+        let isValid = true;
+        let errorMessages = [];
+
+        // Validate name (not empty)
+        if (nameVal === '') {
+          setFieldError(nameInput, nameError, '❌ Name is required.');
+          isValid = false;
+          errorMessages.push('Name is empty');
+        } else {
+          setFieldError(nameInput, nameError, '');
+        }
+
+        // Validate email (contains @)
+        if (emailVal === '') {
+          setFieldError(emailInput, emailError, '❌ Email is required.');
+          isValid = false;
+          errorMessages.push('Email is empty');
+        } else if (!emailVal.includes('@')) {
+          setFieldError(emailInput, emailError, '❌ Email must contain "@" symbol.');
+          isValid = false;
+          errorMessages.push('Email missing @');
+        } else {
+          setFieldError(emailInput, emailError, '');
+        }
+
+        // global status update
+        if (isValid) {
+          formStatus.textContent = '✅ Submitted successfully!';
+          formStatus.style.background = '#d1fae5';
+          formStatus.style.color = '#065f46';
+          globalError.textContent = '';
+          // (mock) you could log or send data
+          console.log(`✅ Valid: Name="${nameVal}", Email="${emailVal}"`);
+          // optional: reset form fields? we keep them filled.
+          // but we could show success. we keep.
+        } else {
+          formStatus.textContent = '❌ Please fix errors';
+          formStatus.style.background = '#fee2e2';
+          formStatus.style.color = '#991b1b';
+          globalError.textContent = '⚠️ ' + errorMessages.join(' · ');
+        }
+
+        // revert status style after a while? we keep it until next submit.
+        // but we also clear on new input. that's fine.
+      });
+
+      // bonus: reset form status when user starts typing (already clears field errors)
+      // but we also reset global status if they change any field
+      function resetFormStatus() {
+        if (formStatus.textContent.includes('✅') || formStatus.textContent.includes('❌')) {
+          formStatus.textContent = 'Ready';
+          formStatus.style.background = 'transparent';
+          formStatus.style.color = '';
+        }
+        globalError.textContent = '';
+      }
+
+      nameInput.addEventListener('focus', resetFormStatus);
+      emailInput.addEventListener('focus', resetFormStatus);
+
+      // ----- additional: reset counter if needed? no. -----
+
+      // ----- double-check structure: we have heading, nav, form, counter, dark toggle -----
+      console.log('🚀 SprintLab ready.');
+
+      // For demo, we can pre-fill example? (not required)
+      // but we want to show validation. we leave empty.
+    })();
+  </script>
+</body>
+</html>

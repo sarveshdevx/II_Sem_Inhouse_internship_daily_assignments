@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Admission · Registration</title>
+    <!-- Font Awesome 6 (free) for subtle icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #f6f9fc 0%, #e9f0f5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            margin: 0;
+        }
+
+        /* main card – professional, soft shadow, rounded */
+        .form-card {
+            max-width: 820px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            padding: 2.5rem 2.8rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 20, 30, 0.25),
+                        0 8px 24px -6px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.25s ease, transform 0.2s ease;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .form-card:hover {
+            box-shadow: 0 30px 55px -15px rgba(0, 40, 60, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* title - center alignment, elegant */
+        h1 {
+            text-align: center;
+            font-weight: 600;
+            font-size: 2.1rem;
+            letter-spacing: -0.3px;
+            color: #0b2b3d;
+            margin-top: 0.2rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+        }
+
+        h1 i {
+            color: #2a7f9c;
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 4px;
+            background: linear-gradient(90deg, #2a7f9c, #6bb4d1, #2a7f9c);
+            border-radius: 4px;
+            opacity: 0.5;
+        }
+
+        /* fieldset grouping – clean, logical */
+        fieldset {
+            border: none;
+            margin: 0 0 1.6rem 0;
+            padding: 0;
+            background: #fafcfe;
+            border-radius: 24px;
+            padding: 1.8rem 1.8rem 0.5rem 1.8rem;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.01), 0 4px 12px rgba(0, 20, 30, 0.04);
+            transition: background 0.2s;
+        }
+
+        fieldset:hover {
+            background: #f8faff;
+        }
+
+        legend {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1a4b5e;
+            padding: 0 14px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.2px;
+            background: transparent;
+            width: auto;
+            border: none;
+            margin-bottom: 0.6rem;
+        }
+
+        legend i {
+            color: #2f7f9e;
+            font-size: 1.1rem;
+            width: 1.6rem;
+        }
+
+        .row-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 1.8rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1f4a5e;
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-group label i {
+            color: #3f7f9a;
+            font-size: 0.9rem;
+            width: 1.1rem;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: #ffffff;
+            border: 1.5px solid #dce6ed;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            color: #0a2838;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #3f95b9;
+            box-shadow: 0 0 0 4px rgba(54, 143, 180, 0.15), 0 4px 10px rgba(0, 0, 0, 0.02);
+            background: #ffffff;
+        }
+
+        .input-group input:hover,
+        .input-group select:hover,
+        .input-group textarea:hover {
+            border-color: #87bed8;
+            background: #fdfdfd;
+        }
+
+        /* special for radio & checkbox – we hide default bullets and create custom */
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.5rem 2rem;
+            padding: 0.5rem 0 0.3rem 0;
+            background: transparent;
+        }
+
+        .radio-option, .check-option {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            font-weight: 450;
+            color: #1d4154;
+            position: relative;
+        }
+
+        /* hide default radio / checkbox */
+        .radio-option input[type="radio"],
+        .check-option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        /* custom radio */
+        .radio-option span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #b6cedb;
+            background: white;
+            transition: 0.15s ease;
+            flex-shrink: 0;
+        }
+
+        .radio-option input[type="radio"]:checked + span {
+            border-color: #1f7b9c;
+            background: #1f7b9c;
+            box-shadow: 0 0 0 3px rgba(31, 123, 156, 0.2);
+        }
+
+        .radio-option input[type="radio"]:checked + span::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            display: block;
+        }
+
+        /* custom checkbox */
+        .check-option span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            border: 2px solid #b6cedb;
+            background: white;
+            transition: 0.15s ease;
+            flex-shrink: 0;
+        }
+
+        .check-option input[type="checkbox"]:checked + span {
+            background: #1f7b9c;
+            border-color: #1f7b9c;
+            box-shadow: 0 0 0 3px rgba(31, 123, 156, 0.2);
+        }
+
+        .check-option input[type="checkbox"]:checked + span::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 12px;
+            color: white;
+        }
+
+        .radio-option:hover span,
+        .check-option:hover span {
+            border-color: #3f8faf;
+            transform: scale(1.02);
+        }
+
+        /* file upload - styled */
+        .file-upload-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            background: #f4f9fe;
+            padding: 0.5rem 1rem 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1.5px dashed #b6d2e3;
+            transition: 0.2s;
+            margin-top: 0.2rem;
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: #3f95b9;
+            background: #f1f8ff;
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            border: none;
+            padding: 0.3rem 0;
+            background: transparent;
+            font-size: 0.9rem;
+            color: #0c5876;
+            flex: 1;
+        }
+
+        .file-upload-wrapper input[type="file"]::file-selector-button {
+            background: #e1eff7;
+            border: none;
+            padding: 0.5rem 1.4rem;
+            border-radius: 30px;
+            font-weight: 500;
+            color: #154c63;
+            margin-right: 1rem;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .file-upload-wrapper input[type="file"]::file-selector-button:hover {
+            background: #c7dde9;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        /* textarea */
+        .input-group textarea {
+            min-height: 90px;
+            resize: vertical;
+            border-radius: 20px;
+            padding: 0.9rem 1.2rem;
+        }
+
+        /* register button */
+        .btn-submit {
+            width: 100%;
+            padding: 0.9rem 1.8rem;
+            background: linear-gradient(135deg, #187194, #2b8bb0);
+            border: none;
+            border-radius: 48px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 8px 18px -8px rgba(28, 100, 130, 0.4);
+            transition: 0.2s ease;
+            cursor: pointer;
+            margin-top: 0.8rem;
+            border: 1px solid rgba(122, 41, 41, 0.15);
+        }
+
+        .btn-submit i {
+            font-size: 1.2rem;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #126282, #1f7b9e);
+            transform: scale(1.01) translateY(-2px);
+            box-shadow: 0 14px 28px -10px rgba(21, 85, 112, 0.5);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 12px -4px rgba(0,0,0,0.2);
+        }
+
+        /* small adjustments */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .mt-1 { margin-top: 0.3rem; }
+
+        @media (max-width: 640px) {
+            .form-card {
+                padding: 1.8rem 1.2rem;
+            }
+            .row-2col {
+                grid-template-columns: 1fr;
+                gap: 0.2rem;
+            }
+            .radio-group, .checkbox-group {
+                gap: 0.8rem 1.5rem;
+            }
+        }
+
+        /* extra polish */
+        .input-group .hint {
+            font-size: 0.7rem;
+            color: #668696;
+            margin-left: 4px;
+            font-weight: 400;
+        }
+
+        .required-star {
+            color: #c74a4a;
+            margin-left: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="form-card">
+    <h1>
+        <i class="fas fa-graduation-cap"></i> 
+        Student Registration Form
+        <i class="fas fa-pen-fancy" style="font-size: 1.6rem;"></i>
+    </h1>
+
+    <form action="#" method="POST" enctype="multipart/form-data">
+        <!-- Personal Information -->
+        <fieldset>
+            <legend><i class="fas fa-user-edit"></i> Personal details</legend>
+            <div class="row-2col">
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> Full Name <span class="required-star">*</span></label>
+                    <input type="text" name="fullname" placeholder="e.g. John Carter" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-envelope"></i> Email <span class="required-star">*</span></label>
+                    <input type="email" name="email" placeholder="student@gmail.com" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> Password <span class="required-star">*</span></label>
+                    <input type="password" name="password" placeholder="Min 6 characters" required minlength="6">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-phone-alt"></i> Mobile Number <span class="required-star">*</span></label>
+                    <input type="tel" name="mobile" placeholder="+91 *********" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-calendar-alt"></i> Date of Birth <span class="required-star">*</span></label>
+                    <input type="date" name="dob" required>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Gender + Course -->
+        <fieldset>
+            <legend><i class="fas fa-venus-mars"></i> Gender & Course</legend>
+            <div class="row-2col">
+                <div class="input-group">
+                    <label><i class="fas fa-flag"></i> Gender <span class="required-star">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="gender" value="female" required>
+                            <span></span> Female
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="gender" value="male" required>
+                            <span></span> Male
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="gender" value="other" required>
+                            <span></span> Other
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-book-open"></i> Course <span class="required-star">*</span></label>
+                    <select name="course" required>
+                        <option value="" disabled selected>– select course –</option>
+                        <option value="bca">Information Technology (IT)</option>
+                        <option value="bsc-cs">Aerospace Engineering</option>
+                        <option value="btech-cse">B.Tech CSE</option>
+                        <option value="bcom">Electrical Engineering </option>
+                        <option value="bba">Civil Engineering</option>
+                        <option value="ba-eng">Mechanical Engineering</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Skills + Resume -->
+        <fieldset>
+            <legend><i class="fas fa-code"></i> Skills & Documents</legend>
+            <div class="input-group">
+                <label><i class="fas fa-check-circle"></i> Select Skills (multiple)</label>
+                <div class="checkbox-group">
+                    <label class="check-option">
+                        <input type="checkbox" name="skills" value="HTML">
+                        <span></span> HTML
+                    </label>
+                    <label class="check-option">
+                        <input type="checkbox" name="skills" value="CSS">
+                        <span></span> CSS
+                    </label>
+                    <label class="check-option">
+                        <input type="checkbox" name="skills" value="PHP">
+                        <span></span> PHP
+                    </label>
+                    <label class="check-option">
+                        <input type="checkbox" name="skills" value="Javascript">
+                        <span></span> Javascript
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fas fa-file-upload"></i> Resume / CV <span class="required-star">*</span></label>
+                <div class="file-upload-wrapper">
+                    <i class="fas fa-cloud-upload-alt" style="color: #2f7f9e;"></i>
+                    <input type="file" name="resume" accept=".pdf,.doc,.docx,.txt" required>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- About yourself -->
+        <fieldset>
+            <legend><i class="fas fa-feather-alt"></i> About yourself</legend>
+            <div class="input-group">
+                <label><i class="fas fa-pencil-alt"></i> Write a brief introduction</label>
+                <textarea name="bio" placeholder="Tell us about your achievements, hobbies, or motivation..."></textarea>
+            </div>
+        </fieldset>
+
+        <!-- Register button -->
+        <button type="submit" class="btn-submit">
+            <i class="fas fa-user-plus"></i> Register Now
+            <i class="fas fa-arrow-right" style="font-size: 1rem;"></i>
+        </button>
+    </form>
+</div>
+</body>
+</html>
+```

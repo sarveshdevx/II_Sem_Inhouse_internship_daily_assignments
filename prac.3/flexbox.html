@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft Flexbox Website</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+/* Navigation Bar */
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-direction:row;
+    gap:20px;
+    background:#202020;
+    color:white;
+    padding:15px 50px;
+}
+
+/* Logo */
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.microsoft-logo{
+    display:grid;
+    grid-template-columns:repeat(2,18px);
+    gap:3px;
+}
+
+.microsoft-logo div{
+    width:18px;
+    height:18px;
+}
+
+.red{background:#F25022;}
+.green{background:#7FBA00;}
+.blue{background:#00A4EF;}
+.yellow{background:#FFB900;}
+
+/* Menu */
+
+.menu{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:35px;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    font-size:18px;
+}
+
+.menu a:hover{
+    color:#00BFFF;
+}
+
+/* Login Button */
+
+.login button{
+    padding:10px 20px;
+    background:#0078D4;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.login button:hover{
+    background:#005EA6;
+}
+
+/* Hero Section */
+
+.hero{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    height:400px;
+    background:linear-gradient(to right,#0078D4,#00A4EF);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:45px;
+}
+
+.hero p{
+    font-size:20px;
+    width:70%;
+}
+
+.hero button{
+    padding:12px 30px;
+    background:white;
+    color:#0078D4;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* Services */
+
+.services{
+    padding:50px;
+    text-align:center;
+}
+
+.services h2{
+    margin-bottom:30px;
+    color:#333;
+}
+
+.service-box{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:250px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+.card h3{
+    margin-bottom:15px;
+}
+
+/* About */
+
+.about{
+    background:white;
+    padding:50px;
+    text-align:center;
+}
+
+.about h2{
+    margin-bottom:20px;
+}
+
+.about p{
+    width:75%;
+    margin:auto;
+    line-height:28px;
+}
+
+/* Contact */
+
+.contact{
+    background:#202020;
+    color:white;
+    padding:40px;
+    text-align:center;
+}
+
+.contact p{
+    margin:10px;
+}
+
+footer{
+    background:black;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav>
+
+<div class="logo">
+
+<div class="microsoft-logo">
+<div class="red"></div>
+<div class="green"></div>
+<div class="blue"></div>
+<div class="yellow"></div>
+</div>
+
+Microsoft
+
+</div>
+
+<div class="menu">
+<a href="#">Home</a>
+<a href="#">Services</a>
+<a href="#">About</a>
+<a href="#">Contact</a>
+</div>
+
+<div class="login">
+<button>Login</button>
+</div>
+
+</nav>
+
+<!-- Hero Section -->
+
+<section class="hero">
+
+<h1>Welcome to Microsoft</h1>
+
+<p>
+Empowering every person and every organization on the planet to achieve more through innovative technology, cloud computing, artificial intelligence, and modern software solutions.
+</p>
+
+<button>Explore More</button>
+
+</section>
+
+<!-- Services -->
+
+<section class="services">
+
+<h2>Our Services</h2>
+
+<div class="service-box">
+
+<div class="card">
+<h3>Cloud Computing</h3>
+<p>Reliable cloud services with Microsoft Azure for businesses of all sizes.</p>
+</div>
+
+<div class="card">
+<h3>AI Solutions</h3>
+<p>Build intelligent applications using Microsoft's advanced AI technologies.</p>
+</div>
+
+<div class="card">
+<h3>Cyber Security</h3>
+<p>Protect your data and systems with enterprise-grade security solutions.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- About -->
+
+<section class="about">
+
+<h2>About Microsoft</h2>
+
+<p>
+Microsoft is a global technology company that develops software, hardware, cloud services, artificial intelligence, and business solutions. Its mission is to empower individuals and organizations by creating innovative products that improve productivity and enhance digital experiences worldwide.
+</p>
+
+</section>
+
+<!-- Contact -->
+
+<section class="contact">
+
+<h2>Contact Us</h2>
+
+<p>Email: support@microsoft.com</p>
+<p>Phone: +1 800 000 0000</p>
+<p>Address: One Microsoft Way, Redmond, Washington, USA</p>
+
+</section>
+
+<footer>
+
+<p>© 2026 Microsoft Clone | Created using HTML, CSS & Flexbox</p>
+
+</footer>
+
+</body>
+</html>
